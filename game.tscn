@@ -1,0 +1,60 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://game.gd" type="Script" id=1]
+[ext_resource path="res://Meadow.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/map.png" type="Texture" id=3]
+[ext_resource path="res://Plague.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=5]
+[ext_resource path="res://HUD.tscn" type="PackedScene" id=6]
+
+[node name="Game" type="Node2D"]
+
+position = Vector2( 400, 300 )
+script = ExtResource( 1 )
+_sections_unfolded = [ "Transform" ]
+Meadow = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="." index="0"]
+
+texture = ExtResource( 3 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Plague" parent="." index="1" instance=ExtResource( 4 )]
+
+position = Vector2( -256, -256 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Player" parent="." index="2" instance=ExtResource( 5 )]
+
+speed = 2
+
+[node name="RotateTimer" type="Timer" parent="." index="3"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = true
+
+[node name="Meadow" parent="." index="4" instance=ExtResource( 2 )]
+
+[node name="HUD" parent="." index="5" instance=ExtResource( 6 )]
+
+[connection signal="losing" from="." to="Plague" method="_on_Game_losing"]
+
+[connection signal="losing" from="." to="HUD" method="_on_Game_losing"]
+
+[connection signal="restarting" from="." to="Plague" method="_on_Game_restarting"]
+
+[connection signal="restarting" from="." to="HUD" method="_on_Game_restarting"]
+
+[connection signal="starting" from="." to="Plague" method="_on_Game_starting"]
+
+[connection signal="starting" from="." to="HUD" method="_on_Game_starting"]
+
+[connection signal="winning" from="." to="Plague" method="_on_Game_winning"]
+
+[connection signal="winning" from="." to="HUD" method="_on_Game_winning"]
+
+[connection signal="timeout" from="RotateTimer" to="." method="_on_RotateTimer_timeout"]
+
+

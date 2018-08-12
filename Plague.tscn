@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Plague.gd" type="Script" id=1]
+[ext_resource path="res://Grease.tscn" type="PackedScene" id=2]
+
+[node name="Plague" type="Node2D" index="0"]
+
+script = ExtResource( 1 )
+Grease = ExtResource( 2 )
+
+[node name="SpawnTimer" type="Timer" parent="." index="0"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
+
+[node name="SpreadTimer" type="Timer" parent="." index="1"]
+
+process_mode = 1
+wait_time = 0.5
+one_shot = false
+autostart = false
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]
+
+[connection signal="timeout" from="SpreadTimer" to="." method="_on_SpreadTimer_timeout"]
+
+
